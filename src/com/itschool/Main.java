@@ -1,12 +1,12 @@
 package com.itschool;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Main {
 
@@ -19,6 +19,7 @@ public class Main {
             cont = true;
         } catch (JSONException e) {
             System.out.println("Error parsing data " + e.toString());
+            return;
         }
 
             try {
@@ -28,6 +29,7 @@ public class Main {
 
                 for (Object forecast: jsonMain)
                 {
+                    System.out.println(forecast + "\n");
                     JSONObject jsonForecast = (JSONObject)forecast;
                     SimpleDateFormat sm = new SimpleDateFormat("d.M.Y H:m");  // https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
                     sm.setTimeZone(TimeZone.getTimeZone("GMT+2"));
@@ -41,8 +43,10 @@ public class Main {
 
                     JSONArray weather = jsonForecast.getJSONArray("weather");
                     String main = (weather.getJSONObject(0)).getString("main");
+                    String desc = (weather.getJSONObject(0)).getString("description");
                     //String main = ((JSONObject)(weather.get(0))).getString("main");
                     System.out.println(main);
+                    System.out.println(desc);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
